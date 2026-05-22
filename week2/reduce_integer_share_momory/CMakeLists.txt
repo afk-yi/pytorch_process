@@ -1,0 +1,1 @@
+add_executable(reduce_integer_share_momory reduce_integer_share_momory.cu)

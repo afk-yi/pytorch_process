@@ -10,6 +10,7 @@ cmake --build .      # 一次性编译所有示例
 
 # 编译单个文件
 nvcc hello_world.cu -o hello_world
+/usr/local/cuda-12.4/bin/nvcc -O3 -o test_bank test_bank.cu
 
 # 添加新模块
 # 会自动更新顶层CMakeLists.txt
