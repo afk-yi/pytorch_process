@@ -1,0 +1,1 @@
+add_executable(reduce_compare reduce_compare.cu)
