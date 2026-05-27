@@ -8,9 +8,15 @@ set(CMAKE_CUDA_ARCHITECTURES "60;70;75" CACHE STRING "CUDA architectures")
 # 设置可执行文件的输出目录（集中到 build/bin/ 下）
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+# 加上行号信息
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -lineinfo")
+
 # 强制 Debug 模式下关闭优化并生成设备调试信息
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -O0 -G")
+else()
+    # Release 及默认模式使用优化
+    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -O2")
 endif()
 
 add_subdirectory(hello_world)
@@ -29,3 +35,5 @@ add_subdirectory(reduce_v1)
 add_subdirectory(reduce_v2)
 add_subdirectory(reduce_v3)
 add_subdirectory(reduce_compare)
+add_subdirectory(reduce_v4)
+add_subdirectory(reduce_v5)

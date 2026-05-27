@@ -1,0 +1,28 @@
+==WARNING== Could not deploy stock section files to "/root/Documents/NVIDIA Nsight Compute/2021.3.1/Sections".
+Set the HOME environment variable to a writable directory.
+==WARNING== Using "/usr/lib/x86_64-linux-gnu/nsight-compute/target/linux-desktop-glibc_2_11_3-x64/../../sections" instead.
+==WARNING== See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#faq.
+==PROF== Connected to process 25876 (/data/week2/reduce_v2/reduce_v2)
+==PROF== Profiling "reduce_v2" - 1: 0%....50%....100% - 10 passes
+Using device 0: Tesla V100-PCIE-16GB
+N = 1048576, blockSize = 256, gridSize = 4096
+GPU 耗时: 406.993 ms
+CPU 总和: 34334516.000000, GPU 总和: 34335728.000000
+结果验证: ✅ 通过 (rel_err=3.529976e-05)
+==PROF== Disconnected from process 25876
+[25876] reduce_v2@127.0.0.1
+  reduce_v2(const float *, float *, int), 2026-May-27 17:24:21, Context 1, Stream 7
+    Section: Command line profiler metrics
+    ---------------------------------------------------------------------- --------------- ------------------------------
+    dram__bytes_read.sum                                                             Mbyte                           4.19
+    dram__bytes_write.sum                                                             byte                              0
+    dram__throughput.avg                                                                                          (!) n/a
+    l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum                                  sector                        131,072
+    l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum.per_second               sector/nsecond                           7.86
+    l2tex__bytes_read.sum                                                                                         (!) n/a
+    sm__throughput.avg.pct_of_peak_sustained_elapsed                                     %                          81.29
+    sm__warps_active.avg.pct_of_peak_sustained_elapsed                                   %                          75.02
+    smsp__pcsamp_warps_issue_stalled_barrier                                          warp                            287
+    smsp__pcsamp_warps_issue_stalled_memory_dependency                                                            (!) n/a
+    ---------------------------------------------------------------------- --------------- ------------------------------
+

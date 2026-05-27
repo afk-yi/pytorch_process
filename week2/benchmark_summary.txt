@@ -1,0 +1,161 @@
+指标                                                      reduce_v1       reduce_v2       reduce_v3       reduce_v4       reduce_v5     
+==========================================================  ================================================================================
+=== NCU ===
+GPU 耗时 (ms)                                                    459.494         406.993         448.972         402.661         389.343
+结果验证                                                           ✅             ✅             ✅             ✅             ✅
+相对误差                                                  4.705452e-05    3.529976e-05    7.748356e-05    4.518795e-05    5.627790e-05
+dram__bytes_read.sum                                                  4.19            4.19            4.19            4.19            4.19
+dram__bytes_write.sum                                                    0               0               0               0               0
+dram__throughput.avg                                                   n/a             n/a             n/a             n/a             n/a
+l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum                     131,072         131,072         131,072         131,072         524,288
+l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum.per_second             7.82            7.86           11.01           11.38           55.16
+l2tex__bytes_read.sum                                                  n/a             n/a             n/a             n/a             n/a
+sm__throughput.avg.pct_of_peak_sustained_elapsed                     80.25           81.29           46.51           39.49           16.24
+sm__warps_active.avg.pct_of_peak_sustained_elapsed                   75.27           75.02           63.39           62.25           59.78
+smsp__pcsamp_warps_issue_stalled_barrier                               272             287             263             196             137
+smsp__pcsamp_warps_issue_stalled_memory_dependency                     n/a             n/a             n/a             n/a             n/a
+
+=== nvprof 原始输出 ===
+
+===== reduce_v1 =====
+==25766== NVPROF is profiling process 25766, command: /data/week2/reduce_v1//reduce_v1
+Using device 0: Tesla V100-PCIE-16GB
+N = 1048576, blockSize = 256, gridSize = 4096
+GPU 耗时: 0.107 ms
+CPU 总和: 34374380.000000, GPU 总和: 34376336.000000
+结果验证: ✅ 通过 (rel_err=5.690285e-05)
+==25766== Profiling application: /data/week2/reduce_v1//reduce_v1
+==25766== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   96.60%  592.73us         1  592.73us  592.73us  592.73us  [CUDA memcpy HtoD]
+                    2.77%  16.992us         1  16.992us  16.992us  16.992us  reduce_v1(float const *, float*, int)
+                    0.40%  2.4640us         1  2.4640us  2.4640us  2.4640us  [CUDA memcpy DtoH]
+                    0.23%  1.4080us         1  1.4080us  1.4080us  1.4080us  [CUDA memset]
+      API calls:   99.48%  272.52ms         2  136.26ms  116.96us  272.40ms  cudaMalloc
+                    0.27%  730.84us         2  365.42us  27.138us  703.70us  cudaMemcpy
+                    0.08%  228.17us         2  114.08us  80.491us  147.68us  cudaFree
+                    0.06%  172.79us       101  1.7100us     145ns  65.334us  cuDeviceGetAttribute
+                    0.04%  104.20us         1  104.20us  104.20us  104.20us  cudaGetDeviceProperties
+                    0.02%  63.773us         1  63.773us  63.773us  63.773us  cudaDeviceSynchronize
+                    0.01%  39.998us         1  39.998us  39.998us  39.998us  cudaLaunchKernel
+                    0.01%  33.527us         1  33.527us  33.527us  33.527us  cuDeviceGetName
+                    0.01%  18.680us         1  18.680us  18.680us  18.680us  cuDeviceGetPCIBusId
+                    0.00%  13.328us         1  13.328us  13.328us  13.328us  cudaMemset
+                    0.00%  3.1940us         1  3.1940us  3.1940us  3.1940us  cudaSetDevice
+                    0.00%  2.8560us         3     952ns     247ns  2.3150us  cuDeviceGetCount
+                    0.00%     812ns         2     406ns     148ns     664ns  cuDeviceGet
+                    0.00%     670ns         1     670ns     670ns     670ns  cuDeviceTotalMem
+                    0.00%     481ns         1     481ns     481ns     481ns  cuDeviceGetUuid
+
+===== reduce_v2 =====
+==25892== NVPROF is profiling process 25892, command: /data/week2/reduce_v2//reduce_v2
+Using device 0: Tesla V100-PCIE-16GB
+N = 1048576, blockSize = 256, gridSize = 4096
+GPU 耗时: 0.118 ms
+CPU 总和: 34393744.000000, GPU 总和: 34395580.000000
+结果验证: ✅ 通过 (rel_err=5.338180e-05)
+==25892== Profiling application: /data/week2/reduce_v2//reduce_v2
+==25892== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   96.90%  618.91us         1  618.91us  618.91us  618.91us  [CUDA memcpy HtoD]
+                    2.68%  17.120us         1  17.120us  17.120us  17.120us  reduce_v2(float const *, float*, int)
+                    0.42%  2.6880us         1  2.6880us  2.6880us  2.6880us  [CUDA memcpy DtoH]
+      API calls:   99.47%  269.87ms         2  134.93ms  119.35us  269.75ms  cudaMalloc
+                    0.28%  750.88us         2  375.44us  42.914us  707.97us  cudaMemcpy
+                    0.09%  257.24us         2  128.62us  77.708us  179.53us  cudaFree
+                    0.06%  169.77us       101  1.6800us     137ns  65.584us  cuDeviceGetAttribute
+                    0.04%  103.38us         1  103.38us  103.38us  103.38us  cudaGetDeviceProperties
+                    0.03%  70.490us         1  70.490us  70.490us  70.490us  cudaDeviceSynchronize
+                    0.02%  44.071us         1  44.071us  44.071us  44.071us  cudaLaunchKernel
+                    0.01%  33.991us         1  33.991us  33.991us  33.991us  cuDeviceGetName
+                    0.00%  9.3360us         1  9.3360us  9.3360us  9.3360us  cuDeviceGetPCIBusId
+                    0.00%  3.6640us         1  3.6640us  3.6640us  3.6640us  cudaSetDevice
+                    0.00%  3.4100us         3  1.1360us     214ns  2.9350us  cuDeviceGetCount
+                    0.00%     847ns         2     423ns     155ns     692ns  cuDeviceGet
+                    0.00%     625ns         1     625ns     625ns     625ns  cuDeviceTotalMem
+                    0.00%     406ns         1     406ns     406ns     406ns  cuDeviceGetUuid
+
+===== reduce_v3 =====
+==26025== NVPROF is profiling process 26025, command: /data/week2/reduce_v3//reduce_v3
+Using device 0: Tesla V100-PCIE-16GB
+N = 1048576, blockSize = 256, gridSize = 4096
+GPU 耗时: 0.114 ms
+CPU 总和: 34322260.000000, GPU 总和: 34323360.000000
+结果验证: ✅ 通过 (rel_err=3.204917e-05)
+==26025== Profiling application: /data/week2/reduce_v3//reduce_v3
+==26025== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   97.80%  629.98us         1  629.98us  629.98us  629.98us  [CUDA memcpy HtoD]
+                    1.78%  11.456us         1  11.456us  11.456us  11.456us  reduce_v4(float const *, float*, int)
+                    0.42%  2.6880us         1  2.6880us  2.6880us  2.6880us  [CUDA memcpy DtoH]
+      API calls:   99.48%  279.33ms         2  139.67ms  111.98us  279.22ms  cudaMalloc
+                    0.27%  764.87us         2  382.44us  43.107us  721.77us  cudaMemcpy
+                    0.09%  254.28us         2  127.14us  77.405us  176.87us  cudaFree
+                    0.06%  171.10us       101  1.6940us     138ns  64.979us  cuDeviceGetAttribute
+                    0.04%  102.39us         1  102.39us  102.39us  102.39us  cudaGetDeviceProperties
+                    0.02%  65.224us         1  65.224us  65.224us  65.224us  cudaDeviceSynchronize
+                    0.02%  45.145us         1  45.145us  45.145us  45.145us  cudaLaunchKernel
+                    0.02%  42.670us         1  42.670us  42.670us  42.670us  cuDeviceGetName
+                    0.00%  9.2240us         1  9.2240us  9.2240us  9.2240us  cuDeviceGetPCIBusId
+                    0.00%  3.9410us         1  3.9410us  3.9410us  3.9410us  cudaSetDevice
+                    0.00%  2.8900us         3     963ns     240ns  2.3800us  cuDeviceGetCount
+                    0.00%     887ns         2     443ns     160ns     727ns  cuDeviceGet
+                    0.00%     675ns         1     675ns     675ns     675ns  cuDeviceTotalMem
+                    0.00%     496ns         1     496ns     496ns     496ns  cuDeviceGetUuid
+
+===== reduce_v4 =====
+==26133== NVPROF is profiling process 26133, command: /data/week2/reduce_v4//reduce_v4
+Using device 0: Tesla V100-PCIE-16GB
+N = 1048576, blockSize = 256, gridSize = 4096
+GPU 耗时: 0.114 ms
+CPU 总和: 34356184.000000, GPU 总和: 34357768.000000
+结果验证: ✅ 通过 (rel_err=4.610524e-05)
+==26133== Profiling application: /data/week2/reduce_v4//reduce_v4
+==26133== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   97.66%  583.20us         1  583.20us  583.20us  583.20us  [CUDA memcpy HtoD]
+                    1.90%  11.328us         1  11.328us  11.328us  11.328us  reduce_v4(float const *, float*, int)
+                    0.44%  2.6560us         1  2.6560us  2.6560us  2.6560us  [CUDA memcpy DtoH]
+      API calls:   99.49%  267.37ms         2  133.69ms  123.21us  267.25ms  cudaMalloc
+                    0.27%  733.05us         2  366.52us  42.252us  690.80us  cudaMemcpy
+                    0.08%  222.72us         2  111.36us  78.192us  144.53us  cudaFree
+                    0.06%  166.07us       101  1.6440us     137ns  64.368us  cuDeviceGetAttribute
+                    0.04%  102.35us         1  102.35us  102.35us  102.35us  cudaGetDeviceProperties
+                    0.02%  60.192us         1  60.192us  60.192us  60.192us  cudaDeviceSynchronize
+                    0.02%  41.821us         1  41.821us  41.821us  41.821us  cudaLaunchKernel
+                    0.01%  32.472us         1  32.472us  32.472us  32.472us  cuDeviceGetName
+                    0.00%  9.3360us         1  9.3360us  9.3360us  9.3360us  cuDeviceGetPCIBusId
+                    0.00%  3.5490us         1  3.5490us  3.5490us  3.5490us  cudaSetDevice
+                    0.00%  2.4300us         3     810ns     228ns  1.8990us  cuDeviceGetCount
+                    0.00%  1.2930us         1  1.2930us  1.2930us  1.2930us  cuDeviceTotalMem
+                    0.00%     888ns         2     444ns     162ns     726ns  cuDeviceGet
+                    0.00%     454ns         1     454ns     454ns     454ns  cuDeviceGetUuid
+
+===== reduce_v5 =====
+==26257== NVPROF is profiling process 26257, command: /data/week2/reduce_v5//reduce_v5
+Using device 0: Tesla V100-PCIE-16GB
+N = 1048576, blockSize = 256, ITEMS_PER_THREAD = 4, gridSize = 1024
+GPU 耗时: 0.108 ms
+CPU 总和: 34357056.000000, GPU 总和: 34359032.000000
+结果验证: ✅ 通过 (rel_err=5.751366e-05)
+==26257== Profiling application: /data/week2/reduce_v5//reduce_v5
+==26257== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   98.44%  596.09us         1  596.09us  596.09us  596.09us  [CUDA memcpy HtoD]
+                    1.19%  7.2000us         1  7.2000us  7.2000us  7.2000us  reduce_v5(float const *, float*, int)
+                    0.37%  2.2400us         1  2.2400us  2.2400us  2.2400us  [CUDA memcpy DtoH]
+      API calls:   99.47%  264.16ms         2  132.08ms  101.02us  264.05ms  cudaMalloc
+                    0.27%  720.25us         2  360.13us  25.395us  694.86us  cudaMemcpy
+                    0.09%  226.85us         2  113.43us  85.541us  141.31us  cudaFree
+                    0.07%  174.19us       101  1.7240us     136ns  71.700us  cuDeviceGetAttribute
+                    0.05%  138.14us         1  138.14us  138.14us  138.14us  cudaGetDeviceProperties
+                    0.02%  63.026us         1  63.026us  63.026us  63.026us  cudaDeviceSynchronize
+                    0.02%  41.475us         1  41.475us  41.475us  41.475us  cudaLaunchKernel
+                    0.01%  31.813us         1  31.813us  31.813us  31.813us  cuDeviceGetName
+                    0.00%  8.3780us         1  8.3780us  8.3780us  8.3780us  cuDeviceGetPCIBusId
+                    0.00%  3.6160us         1  3.6160us  3.6160us  3.6160us  cudaSetDevice
+                    0.00%  3.3110us         3  1.1030us     244ns  2.6690us  cuDeviceGetCount
+                    0.00%  1.1280us         2     564ns     173ns     955ns  cuDeviceGet
+                    0.00%     720ns         1     720ns     720ns     720ns  cuDeviceTotalMem
+                    0.00%     451ns         1     451ns     451ns     451ns  cuDeviceGetUuid
+

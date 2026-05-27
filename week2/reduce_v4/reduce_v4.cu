@@ -20,7 +20,7 @@ __device__ float warpReduceSum(float val) {
 // Block 内归约：先用 warp 归约，再通过共享内存汇总 warp 的部分和
 // ------------------------------------------------------------
 __device__ float blockReduceSum(float val) {
-    static __shared__ float warpPartialSums[32];   // 最多 32 个 warp
+    __shared__ float warpPartialSums[32];   // 最多 32 个 warp
     int lane = threadIdx.x & 31;                   // 线程在 warp 内的编号 (0-31)
     int warpId = threadIdx.x >> 5;                 // 线程所在的 warp 编号
 
@@ -48,19 +48,22 @@ __device__ float blockReduceSum(float val) {
 }
 
 // ------------------------------------------------------------
-// Reduce V4
+// Reduce V3 内核：每个 block 归约自己的数据，输出到全局数组 partial_sums
+// （与 v2 接口相同，但块内实现不同）
 // ------------------------------------------------------------
 __global__ void reduce_v4(const float* input, float* partial_sums, int n) {
-    extern __shared__ float sdata[];   // 动态共享内存（只用于存放输入数据，不是归约用）
+    // extern __shared__ float sdata[];   // 动态共享内存（只用于存放输入数据，不是归约用）
     int tid = threadIdx.x;
     int idx = blockIdx.x * blockDim.x + tid;
 
-    // 加载数据到共享内存（越界填 0）
-    sdata[tid] = (idx < n) ? input[idx] : 0.0f;
-    __syncthreads();
+    // // 加载数据到共享内存（越界填 0）
+    // sdata[tid] = (idx < n) ? input[idx] : 0.0f;
+    // __syncthreads();
 
-    // 使用 warp shuffle + 共享内存汇总 warp 结果 进行 block 级归约
-    float sum = blockReduceSum(sdata[tid]);
+    // // 使用 warp shuffle + 共享内存汇总 warp 结果 进行 block 级归约
+    // float sum = blockReduceSum(sdata[tid]);
+    float val = (idx < n) ? input[idx] : 0.0f;
+    float sum = blockReduceSum(val);
 
     // 每个 block 的线程 0 将部分和写入全局数组
     if (tid == 0) {
@@ -92,7 +95,7 @@ int main() {
     CHECK(cudaMemcpy(d_input, h_input, bytes, cudaMemcpyHostToDevice));
 
     double start = cpuSecond();
-    reduce_v4<<<gridSize, blockSize, blockSize * sizeof(float)>>>(d_input, d_partial, N);
+    reduce_v4<<<gridSize, blockSize>>>(d_input, d_partial, N);
     CHECK(cudaDeviceSynchronize());
     double gpu_time = cpuSecond() - start;
 

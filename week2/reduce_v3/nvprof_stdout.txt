@@ -1,0 +1,26 @@
+==26025== NVPROF is profiling process 26025, command: /data/week2/reduce_v3//reduce_v3
+Using device 0: Tesla V100-PCIE-16GB
+N = 1048576, blockSize = 256, gridSize = 4096
+GPU 耗时: 0.114 ms
+CPU 总和: 34322260.000000, GPU 总和: 34323360.000000
+结果验证: ✅ 通过 (rel_err=3.204917e-05)
+==26025== Profiling application: /data/week2/reduce_v3//reduce_v3
+==26025== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   97.80%  629.98us         1  629.98us  629.98us  629.98us  [CUDA memcpy HtoD]
+                    1.78%  11.456us         1  11.456us  11.456us  11.456us  reduce_v4(float const *, float*, int)
+                    0.42%  2.6880us         1  2.6880us  2.6880us  2.6880us  [CUDA memcpy DtoH]
+      API calls:   99.48%  279.33ms         2  139.67ms  111.98us  279.22ms  cudaMalloc
+                    0.27%  764.87us         2  382.44us  43.107us  721.77us  cudaMemcpy
+                    0.09%  254.28us         2  127.14us  77.405us  176.87us  cudaFree
+                    0.06%  171.10us       101  1.6940us     138ns  64.979us  cuDeviceGetAttribute
+                    0.04%  102.39us         1  102.39us  102.39us  102.39us  cudaGetDeviceProperties
+                    0.02%  65.224us         1  65.224us  65.224us  65.224us  cudaDeviceSynchronize
+                    0.02%  45.145us         1  45.145us  45.145us  45.145us  cudaLaunchKernel
+                    0.02%  42.670us         1  42.670us  42.670us  42.670us  cuDeviceGetName
+                    0.00%  9.2240us         1  9.2240us  9.2240us  9.2240us  cuDeviceGetPCIBusId
+                    0.00%  3.9410us         1  3.9410us  3.9410us  3.9410us  cudaSetDevice
+                    0.00%  2.8900us         3     963ns     240ns  2.3800us  cuDeviceGetCount
+                    0.00%     887ns         2     443ns     160ns     727ns  cuDeviceGet
+                    0.00%     675ns         1     675ns     675ns     675ns  cuDeviceTotalMem
+                    0.00%     496ns         1     496ns     496ns     496ns  cuDeviceGetUuid

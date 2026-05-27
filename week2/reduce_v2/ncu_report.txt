@@ -1,0 +1,23 @@
+==WARNING== Could not deploy stock section files to "/root/Documents/NVIDIA Nsight Compute/2021.3.1/Sections".
+Set the HOME environment variable to a writable directory.
+==WARNING== Using "/usr/lib/x86_64-linux-gnu/nsight-compute/target/linux-desktop-glibc_2_11_3-x64/../../sections" instead.
+==WARNING== See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#faq.
+==PROF== Connected to process 21867 (/data/week2/reduce_v2/reduce_v2)
+==PROF== Profiling "reduce_v2" - 1: 0%....50%....100% - 10 passes
+==PROF== Disconnected from process 21867
+[21867] reduce_v2@127.0.0.1
+  reduce_v2(const float *, float *, int), 2026-May-27 17:11:56, Context 1, Stream 7
+    Section: Command line profiler metrics
+    ---------------------------------------------------------------------- --------------- ------------------------------
+    dram__bytes_read.sum                                                             Mbyte                           4.19
+    dram__bytes_write.sum                                                             byte                              0
+    dram__throughput.avg                                                                                          (!) n/a
+    l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum                                  sector                        131,072
+    l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum.per_second               sector/nsecond                           7.95
+    l2tex__bytes_read.sum                                                                                         (!) n/a
+    sm__throughput.avg.pct_of_peak_sustained_elapsed                                     %                          81.00
+    sm__warps_active.avg.pct_of_peak_sustained_elapsed                                   %                          74.99
+    smsp__pcsamp_warps_issue_stalled_barrier                                          warp                            254
+    smsp__pcsamp_warps_issue_stalled_memory_dependency                                                            (!) n/a
+    ---------------------------------------------------------------------- --------------- ------------------------------
+
