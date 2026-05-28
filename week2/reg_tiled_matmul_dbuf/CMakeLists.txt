@@ -1,0 +1,1 @@
+add_executable(reg_tiled_matmul_dbuf reg_tiled_matmul_dbuf.cu)
